@@ -46,29 +46,42 @@ downloadBtn.addEventListener('click', (evt) => {
     progressCon.style.display = 'block'
     let videoTimeName = crypto.createHmac('sha256', new Date().toTimeString() + new Date().toDateString()).update('i love nodejs').digest('hex').substr(2, 10)
     let videoSize = parseFloat(evt.target.videoSize) * 1048576
-    let videoPath = path.join(__dirname, `${videoTimeName}.mp4`)
-    fs.open(videoPath, 'w', (err, fd) => {
-        let hashName = evt.target.hashName
-        http.get({
-            hostname: 'geekshine.io',
-            port: 3000,
-            path: `/downloadByHashName?hashName=${hashName}`
-        }, (res) => {
+    let videoPath = path.join(`d:/geekshine`, `${videoTimeName}.mp4`)
 
-            let size = 0;
-            res.on('data', (chunk) => {
-                size += chunk.length
-                var p = Math.round((size / videoSize) * 100)
-                progress['aria - valuenow'] = p
-                progress.style.width = `${p}%`
-                progressTip.innerText = `${p}%`
-            })
 
-            res.on('end', () => {
-                progressCon.style.display = 'none'
-                alert('ok!')
+    fs.readdir('d:/geekshine', (err, files) => {
+        if (err) {
+            fs.mkdirSync('d:/geekshine')
+        }
+        fs.open(videoPath, 'w', (err, fd) => {
+            let hashName = evt.target.hashName
+            http.get({
+                hostname: 'geekshine.io',
+                port: 3000,
+                path: `/downloadByHashName?hashName=${hashName}`
+            }, (res) => {
+
+                let size = 0;
+                res.on('data', (chunk) => {
+                    size += chunk.length
+                    var p = Math.round((size / videoSize) * 100)
+                    progress['aria - valuenow'] = p
+                    progress.style.width = `${p}%`
+                    progressTip.innerText = `${p}%`
+                })
+
+                res.on('end', () => {
+                    progressCon.style.display = 'none'
+                    alert('ok!')
+                })
+                res.pipe(fs.createWriteStream(videoPath))
             })
-            res.pipe(fs.createWriteStream(videoPath))
         })
     })
+
+
+
+
+
+
 })
