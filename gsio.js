@@ -12,9 +12,18 @@ let progressCon = document.getElementById('progressCon')
 let progress = document.getElementById('progress')
 let progressTip = document.getElementById('progressTip')
 
+let loading = document.getElementById('loading')
 
 giveMeLink.addEventListener('click', (e) => {
+    giveMeLink.style.display = 'none'
+    loading.style.display = 'inline-block'
+
     let videoLink = linkInput.value
+    if (videoLink.trim() === '' || videoLink.trim().length < 10) {
+        alert(`behave yourself please`)
+        return false
+    }
+
     let encodedVideoLink = [...videoLink].map(x => x.codePointAt(0)).toString()
     http.get({
         hostname: 'geekshine.io',
@@ -27,8 +36,8 @@ giveMeLink.addEventListener('click', (e) => {
         })
         res.on('end', () => {
             let info = JSON.parse(data)
-            console.log(info)
-            downloadBtn.style.display = 'block'
+            downloadBtn.style.display = 'inline-block'
+            loading.style.display = 'none'
             downloadBtn.hashName = info.videoName
             downloadBtn.videoSize = info.videoSize
         })
@@ -72,6 +81,8 @@ downloadBtn.addEventListener('click', (evt) => {
 
                 res.on('end', () => {
                     progressCon.style.display = 'none'
+                    giveMeLink.style.display = 'inline-block'
+                    linkInput.value = ''
                     alert('ok!')
                 })
                 res.pipe(fs.createWriteStream(videoPath))

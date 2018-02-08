@@ -3,9 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Hello World!</title>
+  <title>youtube视频下载器v1.0.0</title>
   <link href="./css/bootstrap.min.css" rel="stylesheet">
   <style>
+    body {
+      padding-top: 50px;
+    }
+
     #downloadBtn {
       display: none;
     }
@@ -13,19 +17,31 @@
     #progressCon {
       display: none;
     }
+
+    #linkInput {
+      width: 50%;
+      height: 40px;
+      border-radius: 3px;
+      margin-left: 20px;
+    }
+
+    #loading {
+      display: inline-block;
+      display: none;
+    }
   </style>
 </head>
 
 <body id="body">
-  <input id="linkInput" type="text" value="https://youtu.be/lCGrVHUsXPo">
-  <button id="giveMeLink" type="button" class="btn btn-default">give me link!</button>
-  <button id="downloadBtn" class="btn btn-default">downloadNow</button>
+  <input id="linkInput" type="text" placeholder="enter your video link here...">
+  <button id="giveMeLink" type="button" class="btn btn-primary">let's go!</button>
+  <img id="loading" src="./images/loading.gif">
+  <button id="downloadBtn" class="btn btn-success">download now</button>
   <div id="progressCon" class="progress">
     <div id="progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
       style="width: 0%">
       <span id="progressTip"></span>
     </div>
-
   </div>
 
   <script>
