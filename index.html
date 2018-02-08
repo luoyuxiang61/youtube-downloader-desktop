@@ -4,20 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Hello World!</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
   <style>
     #downloadBtn {
+      display: none;
+    }
+
+    #progressCon {
       display: none;
     }
   </style>
 </head>
 
 <body id="body">
-  <br>
   <input id="linkInput" type="text" value="https://youtu.be/lCGrVHUsXPo">
-  <button id="giveMeLink" type="button">give me link!</button>
-  <hr>
-  <button id="downloadBtn">downloadNow</button>
+  <button id="giveMeLink" type="button" class="btn btn-default">give me link!</button>
+  <button id="downloadBtn" class="btn btn-default">downloadNow</button>
+  <div id="progressCon" class="progress">
+    <div id="progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+      style="width: 0%">
+      <span id="progressTip"></span>
+    </div>
 
+  </div>
 
   <script>
     require('./gsio.js')
