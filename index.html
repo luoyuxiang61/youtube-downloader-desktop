@@ -5,11 +5,7 @@
   <meta charset="UTF-8">
   <title>Hello World!</title>
   <style>
-    #downloadLink {
-      display: none;
-    }
-
-    #downloadNow {
+    #downloadBtn {
       display: none;
     }
   </style>
@@ -17,31 +13,13 @@
 
 <body id="body">
   <br>
-  <input id="videoLink" type="text" value="https://youtu.be/lCGrVHUsXPo">
+  <input id="linkInput" type="text" value="https://youtu.be/lCGrVHUsXPo">
   <button id="giveMeLink" type="button">give me link!</button>
   <hr>
-  <p id="downloadLink"></p>
-  <button id="downloadNow">downloadNow</button>
+  <button id="downloadBtn">downloadNow</button>
 
 
   <script>
-    let downloadLink = document.getElementById('downloadLink')
-    let downloadNow = document.getElementById('downloadNow')
-    let linkInput = document.getElementById('videoLink')
-    document.getElementById('giveMeLink').addEventListener('click', (e) => {
-      let videoLink = linkInput.value
-      let encodedVideoLink = [...videoLink].map(x => x.codePointAt(0)).toString()
-      downloadLink.innerText = `http://geekshine.io:3000/geekshine.io.mp4?url=${encodedVideoLink}`
-      downloadLink.style.display = 'block'
-      downloadNow.style.display = 'block'
-      downloadNow.link = encodedVideoLink
-    })
-
-    linkInput.addEventListener('keydown', () => {
-      downloadLink.style.display = 'none'
-      downloadNow.style.display = 'none'
-    })
-
     require('./gsio.js')
   </script>
 </body>
