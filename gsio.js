@@ -26,7 +26,7 @@ giveMeLink.addEventListener('click', (e) => {
 
     let encodedVideoLink = [...videoLink].map(x => x.codePointAt(0)).toString()
     http.get({
-        hostname: 'geekshine.io',
+        hostname: '144.202.98.164',
         port: 3000,
         path: `/download720Ftp?url=${encodedVideoLink}`
     }, (res) => {
@@ -36,6 +36,7 @@ giveMeLink.addEventListener('click', (e) => {
         })
         res.on('end', () => {
             let info = JSON.parse(data)
+            console.log(info)
             downloadBtn.style.display = 'inline-block'
             loading.style.display = 'none'
             downloadBtn.hashName = info.videoName
@@ -65,7 +66,7 @@ downloadBtn.addEventListener('click', (evt) => {
         fs.open(videoPath, 'w', (err, fd) => {
             let hashName = evt.target.hashName
             http.get({
-                hostname: 'geekshine.io',
+                hostname: '144.202.98.164',
                 port: 3000,
                 path: `/downloadByHashName?hashName=${hashName}`
             }, (res) => {
@@ -83,7 +84,7 @@ downloadBtn.addEventListener('click', (evt) => {
                     progressCon.style.display = 'none'
                     giveMeLink.style.display = 'inline-block'
                     linkInput.value = ''
-                    alert('ok!')
+                    alert('ok! you can find your video in D:/geekshine')
                 })
                 res.pipe(fs.createWriteStream(videoPath))
             })
